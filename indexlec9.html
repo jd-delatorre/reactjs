@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+    <link rel="stylesheet" text="text/css" href="lesson10styling.css"/>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        // ES6 tutorial
+        class Counter extends React.Component{
+            constructor(props){
+                //initial state
+                super(props);  //access to keyword 'this'
+                console.log(this.props);
+                this.state = { count: 0 }
+                // this.click = this.click.bind(this);
+            }
+            click(value){
+                // alert('clicked')
+                console.log(value);
+            }
+            render(){
+                return (
+                    <div onClick={ () => this.click(10) }>{this.props.text}</div>
+                )
+            }
+        }
+
+        //default props in es6
+        Counter.defaultProps = { text: "Hello" }
+        Counter.propTypes = { text: React.PropTypes.string }
+
+        //stateless component
+
+        const Button = (props) => {
+            return (
+                <button className={props.className} onClick = {props.clickHandler}>{props.text}</button>
+            )
+        }
+
+        ReactDOM.render(
+            <Counter />,
+            document.getElementById('app')
+        )
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script type="text/babel">
+    var SecondComponent = React.createClass({
+        propTypes: {
+            name: React.PropTypes.string.isRequired,
+            location: React.PropTypes.string.isRequired
+        },
+        getDefaultProps: function(){
+            return {
+                name: 'Peter',
+                location: 'Georgia'
+            }
+        },
+        render: function(){
+            console.log(this);
+            let name = this.props.name;
+            let location = this.props.location;
+            return (
+                <div>
+                    <p>Hello, {name} from {location}!</p>
+                    <p>I am from {location}</p>
+                </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+        <SecondComponent name="Shane" location="Atlanta" />,
+        document.getElementById('app')
+    );
+
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+    <style>
+        body {
+            padding: 40px;
+            font-family: "helvetica neue", sans-serif;
+        }
+
+        .container {
+            width: 600px;
+            margin: auto;
+            color: black;
+            padding: 20px;
+            text-align: center;
+        }
+        .container h1 {
+            margin: 0;
+            padding: 20px;
+            font-size: 36px;
+        }
+        .container .btn {
+            border: 0;
+            padding: 15px;
+            margin: 10px;
+            width: 20%;
+            font-size: 15px;
+            outline: none;
+            border-radius: 3px;
+            color: #FFF;
+            font-weight: bold;
+        }
+
+        .btn.blue-btn {
+            background-color: #55acee;
+            box-shadow: 0px 5px 0px 0px #3C93D5;
+        }
+
+        .btn.blue-btn:hover {
+            background-color: #6FC6FF;
+        }
+
+        .btn.blue-btn {
+            background-color: #55acee;
+            box-shadow: 0px 5px 0px 0px #3C93D5;
+        }
+
+        .btn.blue-btn:hover {
+            background-color: #6FC6FF;
+        }
+
+        .btn.green-btn {
+            background-color: #2ecc71;
+            box-shadow: 0px 5px 0px 0px #15B358;
+        }
+
+        .btn.green-btn:hover {
+            background-color: #48E68B;
+        }
+
+        .btn.purple-btn {
+            background-color: #9b59b6;
+            box-shadow: 0px 5px 0px 0px #82409D;
+        }
+
+        .btn.purple-btn:hover {
+            background-color: #B573D0;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app"></div>
+
+<script type="text/babel">
+
+
+    class CounterChallenge extends React.Component{
+        constructor(props){
+            super(props);
+            //states initialized
+            this.state = { count: 0 }
+            this.incrementCount = this.incrementCount.bind(this);
+        }
+
+        incrementCount(value) {
+            this.setState({
+                count: this.state.count + value
+            })
+        }
+
+        render(){
+            return (
+                <div className="container">
+                    <h1>Count: {this.state.count}</h1>
+                    <Button style="btn blue-btn" text={`${this.props.text} ${this.props.valueOne}`} value={this.props.valueOne} clickHandler={() => this.incrementCount(this.props.valueOne)} />
+                    <Button style="btn green-btn" text={`${this.props.text} ${this.props.valueTwo}`} value={this.props.valueTwo} clickHandler={() => this.incrementCount(this.props.valueTwo)} />
+                    <Button style="btn purple-btn" text={`${this.props.text} ${this.props.valueThree}`} value={this.props.valueThree} clickHandler={() => this.incrementCount(this.props.valueThree)} />
+                </div>
+            )
+        }
+    };
+
+    CounterChallenge.defaultProps = {
+        valueOne: 1,
+        valueTwo: 5,
+        valueThree: 10,
+        text: 'Add'
+    }
+
+    //stateless function
+    const Button = (props) => {
+        return(
+            <button className={props.style} value={props.value} onClick={props.clickHandler}>{props.text}</button>
+        )
+    };
+
+    Button.propTypes = {
+        text: React.PropTypes.string,
+        style: React.PropTypes.string,
+        value: React.PropTypes.number,
+        clickHandler: React.PropTypes.func.isRequired
+    }
+
+    ReactDOM.render(
+        <CounterChallenge valueOne={100} valueTwo={1000} valueThree={10000} />,
+        document.getElementById('app')
+    );
+
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+    <style>
+    body {
+      padding: 40px;
+      font-family: "helvetica neue", sans-serif;
+    }
+
+    .container {
+      width: 600px;
+      margin: auto;
+      color: black;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container label {
+      margin: 0;
+      padding: 20px;
+      font-size: 36px;
+    }
+
+    .container .btn {
+      border: 0;
+      padding: 15px;
+      margin: 10px;
+      width: 20%;
+      font-size: 15px;
+      outline: none;
+      border-radius: 3px;
+      color: #FFF;
+      font-weight: bold;
+    }
+
+    .btn.blue-btn {
+      background-color: #55acee;
+      box-shadow: 0px 5px 0px 0px #3C93D5;
+    }
+
+    .btn.blue-btn:hover {
+       background-color: #6FC6FF;
+    }
+
+</style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        //Higher Order components
+        let BaseCount = (BasicComponent) => class extends React.Component{
+          constructor(props){
+              super(props);
+              this.state = {
+                count: 0,
+                text: 'Hello'
+              }
+              this.incrementCount = this.incrementCount.bind(this);
+          }
+
+          incrementCount(){
+            console.log("I have been clicked");
+            this.setState({
+              count: this.state.count + 1
+            })
+          }
+
+          render(){
+            return (
+              <div className="container">
+                <BasicComponent {...this.state} increment={this.incrementCount} />
+              </div>
+            )
+          }
+        }
+
+        //stateless functional component
+        const Button = (props) => {
+          console.log(props);
+          return (
+            <button className="btn blue-btn" onClick={props.increment}>Count: {props.count}</button>
+          )
+        }
+
+        const Label = (props) => {
+          return (
+            <label onMouseMove={props.increment}> Count: {props.count} </label>
+          )
+        }
+
+        // to pass stateless component to higher component
+        let ExtendedButton = BaseCount(Button);
+        let ExtendedLabel = BaseCount(Label);
+
+        const Container = () => {
+            return(
+              <div>
+                <ExtendedButton />
+                <ExtendedLabel />
+              </div>
+            )
+        }
+
+        ReactDOM.render(
+          <Container />,
+          document.getElementById('app')
+        )
+    </script>
+</body>
+</html>

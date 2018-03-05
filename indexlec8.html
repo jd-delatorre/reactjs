@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+
+    <style>
+        body {
+            padding: 40px;
+            font-family: "helvetica neue", sans-serif;
+        }
+
+        .container {
+            width: 600px;
+            margin: auto;
+            color: black;
+            padding: 20px;
+            text-align: center;
+        }
+        .container h1 {
+            margin: 0;
+            padding: 20px;
+            font-size: 36px;
+        }
+        .container .btn {
+            border: 0;
+            padding: 15px;
+            margin: 10px;
+            width: 20%;
+            font-size: 15px;
+            outline: none;
+            border-radius: 3px;
+            color: #FFF;
+            font-weight: bold;
+        }
+
+        .btn.blue-btn {
+            background-color: #55acee;
+            box-shadow: 0px 5px 0px 0px #3C93D5;
+        }
+
+        .btn.blue-btn:hover {
+            background-color: #6FC6FF;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        var LikesComponent = React.createClass({
+            updateLikes: function(){
+                ReactDOM.render(
+                    <LikesComponent likes={this.props.likes + 1} />,
+                    document.getElementById('app')
+                )
+            },
+            getDefaultProps: function(){
+                return ({
+                    likes: 0
+                })
+            },
+            getInitialState: function(){
+                return ({
+                    popular: false
+                })
+            },
+            componentWillReceiveProps: function(nextProps){
+                console.log(nextProps);
+                console.log("ComponentWillReceiveProps");
+                this.setState({
+                    popular: nextProps.likes >= 10
+                })
+            },
+            shouldComponentUpdate: function(nextProps, nextState){
+                // console.log("should update?");
+                // console.log("should update nextprops: ", nextProps);
+                // console.log("should update nextState: ", nextState);
+                return nextProps.likes % 2 === 0;
+            },
+            render: function(){
+                console.log("component rendered");
+                return (
+                    <div className="container">
+                        <h1>{this.state.popular ? "I'm popular" : null}</h1>
+                        <button className="btn blue-btn" onClick={this.updateLikes}>Likes: {this.props.likes}</button>
+                    </div>
+                )
+            },
+            componentDidUpdate: function(prevProps, prevState){
+                console.log("Previous Props ", prevProps);
+                console.log("Previous State ", prevState);
+                console.log(ReactDOM.findDOMNode(this));
+            }
+        });
+
+        ReactDOM.render(
+           <LikesComponent/>,
+           document.getElementById('app')
+        );
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
